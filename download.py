@@ -6,7 +6,7 @@ process = cms.Process("Download")
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10) )
 
 # Configure the object that reads the input file
 process.source = cms.Source("PoolSource",
