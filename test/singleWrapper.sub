@@ -1,6 +1,6 @@
-# Test out single sample multiple times
+# Test out single sample multiple times.
 
-Executable = plugins/massWrapper.sh
+Executable = plugins/singleWrapper.sh
 
 use_x509userproxy  = true
 
