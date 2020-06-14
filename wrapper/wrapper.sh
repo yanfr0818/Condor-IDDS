@@ -1,4 +1,4 @@
 #!/bin/sh
 
-python /opt/psetEditWrapper.py foo
+python psetEditWrapper.py foo
 exec "$@"
