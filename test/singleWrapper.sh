@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $3 == "NULL" ]
+if [ $3 == "NULL" ] && [ $4 == "NULL" ]
 then
     exit -1
 fi
