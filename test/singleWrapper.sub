@@ -1,4 +1,4 @@
-# Test out single sample multiple times.
+# Test out one single sample.
 
 Executable = plugins/singleWrapper.sh
 
