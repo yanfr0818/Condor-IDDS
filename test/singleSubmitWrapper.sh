@@ -6,10 +6,14 @@ then
     exit index = 1
 fi
 
-dir=$(sed -n "${index}p" /home/bloomcap3/listdir.txt)
-cms=$(sed -n "${index}p" /home/bloomcap3/listcms.txt)
-arch=$(sed -n "${index}p" /home/bloomcap3/listarch.txt)
+for i in {1..100}
+do
+    dir=$(sed -n "${index}p" /home/bloomcap3/listdir.txt)
+    cms=$(sed -n "${index}p" /home/bloomcap3/listcms.txt)
+    sarch=$(sed -n "${index}p" /home/bloomcap3/listarch.txt)
 
-echo "The variables: ${dir} ${cms} ${arch}"
+    echo "The variables: ${dir} ${cms} ${arch}"
 
-condor_submit singleWrapper.sub -append "Arguments = ${dir} ${cms} ${arch}" "transfer_input_files = /home/bloomcap3/$dir, /home/bloomcap3/$dir/PSetDump.py, /home/bloom/yanfr0818/IDDS/condor/psetB.py, /home/bloom/yanfr0818/IDDS/condor/psetEditWrapper.py" "Error = massWrapper/err.$index" "Output = massWrapper/out.$index" "Log = massWrapper/log.$index" 
+    condor_submit singleWrapper.sub -append "Arguments = ${dir} ${cms} ${sarch} ${i}" "transfer_input_files = /home/bloomcap3/$dir, /home/bloomcap3/$dir/PSetDump.py, /home/bloom/yanfr0818/IDDS/condor/psetB.py, /home/bloom/yanfr0818/IDDS/condor/psetEditWrapper.py" "transfer_output_files = jobreport$i.xml, jobreportA$i.xml, jobreportB$i.xml" "Error = singleWrapper/err.$i" "Output = singleWrapper/out.$i" "Log = singleWrapper/log.$i" 
+
+done
