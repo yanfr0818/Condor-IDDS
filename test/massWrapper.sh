@@ -27,6 +27,7 @@ method=$(/usr/libexec/condor/condor_chirp get_job_attr ChirpTransferMethod)
 if (method=="cms")
 then
     trap 'exit' ERR
-    cmsRun psetB.py
+    cmsRun psetB.py -j jobreportB.xml
+    cmsRun psetA.py -j jobreportA.xml
 fi
-cmsRun psetA.py
+cmsRun psetA.py -j jobreport.xml
