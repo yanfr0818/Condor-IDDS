@@ -1,0 +1,22 @@
+# Test out single sample multiple times
+
+Executable = plugins/massWrapper.sh
+
+use_x509userproxy  = true
+
+Universe           = vanilla
+#Universe            = docker
+
+should_transfer_files = YES
+when_to_transfer_output = ALWAYS
+
+transfer_output_files = jobreport.xml, jobreportA.xml, jobreportB.xml
+
+#+WantDocker = True
+#docker_image ="unlhcc/osg-wn-el7"
+
++WantIOProxy = true
+
+request_memory=8000M
+
+Queue 100
