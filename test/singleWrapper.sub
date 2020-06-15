@@ -1,6 +1,6 @@
 # Test out one single sample.
 
-Executable = ../wrapper/singleWrapper.sh
+Executable = singleWrapper.sh
 
 use_x509userproxy  = true
 
