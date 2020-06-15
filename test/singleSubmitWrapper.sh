@@ -14,6 +14,6 @@ do
 
     echo "The variables: ${dir} ${cms} ${sarch} ${i}"
 
-    condor_submit singleWrapper.sub -append "Arguments = ${dir} ${cms} ${sarch} ${i}" "transfer_input_files = /home/bloomcap3/$dir, /home/bloomcap3/$dir/PSetDump.py, /home/bloom/yanfr0818/IDDS/condor/psetB.py, /home/bloom/yanfr0818/IDDS/condor/psetEditWrapper.py" "transfer_output_files = jobreport$i.xml, jobreportA$i.xml, jobreportB$i.xml" "Error = singleWrapper/err.$i" "Output = singleWrapper/out.$i" "Log = singleWrapper/log.$i" 
+    condor_submit singleWrapper.sub -append "Arguments = ${dir} ${cms} ${sarch} ${i}" "transfer_input_files = /home/bloomcap3/$dir, /home/bloomcap3/$dir/PSetDump.py, ../PSets/psetB.py, ../wrapper/psetEditWrapper.py" "transfer_output_files = jobreport$i.xml, jobreportA$i.xml, jobreportB$i.xml" "Error = singleWrapper/err.$i" "Output = singleWrapper/out.$i" "Log = singleWrapper/log.$i" 
 
 done
