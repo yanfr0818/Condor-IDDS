@@ -30,5 +30,6 @@ then
     trap 'exit' ERR
     cmsRun psetB.py -j jobreportB$jno.xml
     cmsRun psetA.py -j jobreportA$jno.xml
+else
+    cmsRun psetA.py -j jobreport$jno.xml
 fi
-cmsRun psetA.py -j jobreport$jno.xml
