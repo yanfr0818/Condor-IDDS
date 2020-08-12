@@ -235,7 +235,7 @@ class SetupCMSSWPset():
         applyTweak(self.process, tweak, self.fixupDict)
         return
         
-    def main():
+def main():
         
         print("Executing SetupCMSSWPSet...")
         mySetup = SetupCMSSWPset()
