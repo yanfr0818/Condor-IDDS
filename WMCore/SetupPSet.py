@@ -16,8 +16,8 @@ import re
 
 import FWCore.ParameterSet.Config as cms
 
-from PSetTweaks.PSetTweak import PSetTweak
-from PSetTweaks.WMTweak import applyTweak, makeJobTweak, makeOutputTweak, makeTaskTweak, resizeResources
+from PSetTweak import PSetTweak
+from WMTweak import applyTweak, makeJobTweak, makeOutputTweak, makeTaskTweak, resizeResources
 
 
 def fixupGlobalTag(process):
