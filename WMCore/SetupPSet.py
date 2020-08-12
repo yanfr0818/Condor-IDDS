@@ -268,8 +268,5 @@ class SetupCMSSWPset():
 
         return 0
    
-def main():
-    mySetup = SetupCMSSWPset()
-    
-if __name__ == "__main__":
-    main()
+mySetup = SetupCMSSWPset()
+
