@@ -185,7 +185,7 @@ class SetupCMSSWPset():
         Load a PSet that was shipped with the job sandbox.
 
         """
-        psetModule = "%s" % 'pset.py'
+        psetModule = "%s" % 'pset'
 
         try:
             processMod = __import__(psetModule, globals(), locals(), ["process"], -1)
