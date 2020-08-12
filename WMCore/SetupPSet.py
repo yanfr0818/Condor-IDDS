@@ -178,15 +178,13 @@ class SetupCMSSWPset():
                  "process.source.lumisToProcess": fixupLumisToProcess,
                  "process.source.firstLuminosityBlock": fixupFirstLumi}
 
-    def loadPSet(self):
+    def loadPSet(self, psetModule = 'pset'):
         """
         _loadPSet_
 
         Load a PSet that was shipped with the job sandbox.
 
         """
-        psetModule = "%s" % 'pset'
-
         try:
             processMod = __import__(psetModule, globals(), locals(), ["process"], -1)
             self.process = processMod.process
@@ -241,7 +239,7 @@ def main():
         mySetup = SetupCMSSWPset()
 
         try:
-            mySetup.loadPSet()
+            mySetup.loadPSet('pset')
         except Exception as ex:
             print("Error loading PSet:")
             raise ex
@@ -257,7 +255,7 @@ def main():
 
         psetTweak = "pset.py"
         if psetTweak is not None:
-            mySetup.applyTweak(psetTweak)
+            mySetup.applyPSetTweak(psetTweak, self.fixupDict)
         
         try:
             with open("pset_new.py", 'wb+') as pHandle:
