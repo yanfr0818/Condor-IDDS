@@ -193,7 +193,7 @@ class SetupCMSSWPset():
         except ImportError as ex:
             msg = "Unable to import process from %s:\n" % psetModule
             msg += str(ex)
-            self.logger.error(msg)
+            print(msg)
             raise ex
 
         return
@@ -237,19 +237,19 @@ class SetupCMSSWPset():
         
     def __call__(self):
         
-        self.logger.info("Executing SetupCMSSWPSet...")
+        print("Executing SetupCMSSWPSet...")
 
         try:
             self.loadPSet()
         except Exception as ex:
-            self.logger.exception("Error loading PSet:")
+            print("Error loading PSet:")
             raise ex
 
         # Check process.source exists
         if getattr(self.process, "source", None) is None:
             msg = "Error in CMSSW PSet: process is missing attribute 'source'"
             msg += " or process.source is defined with None value."
-            self.logger.error(msg)
+            print(msg)
             raise RuntimeError(msg)
 
         self.fixupProcess()
@@ -262,9 +262,9 @@ class SetupCMSSWPset():
             with open("pset_new.py", 'wb+') as pHandle:
                 pHandle.write(self.process)
         except Exception as ex:
-            self.logger.exception("Error writing out PSet:")
+            print("Error writing out PSet:")
             raise ex
-        self.logger.info("CMSSW PSet setup completed!")
+        print("CMSSW PSet setup completed!")
 
         return 0
    
