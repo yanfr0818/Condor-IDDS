@@ -16,7 +16,7 @@ import logging
 import os
 import pickle
 
-from PSetTweaks.PSetTweak import PSetTweak
+from PSetTweak import PSetTweak
 
 # params to be extracted from an output module
 _TweakOutputModules = [
