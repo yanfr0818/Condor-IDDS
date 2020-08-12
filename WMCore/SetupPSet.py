@@ -294,3 +294,8 @@ class SetupCMSSWPset():
         self.logger.info("CMSSW PSet setup completed!")
 
         return 0
+   
+def main():
+    mySetup = SetupCMSSWPset()
+    print(mySetup.process)
+    
