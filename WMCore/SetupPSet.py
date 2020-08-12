@@ -178,33 +178,6 @@ class SetupCMSSWPset():
                  "process.source.lumisToProcess": fixupLumisToProcess,
                  "process.source.firstLuminosityBlock": fixupFirstLumi}
 
-    def createProcess():
-        """
-        _createProcess_
-
-        Create a Configuration.DataProcessing PSet.
-
-        """
-   
-        try:
-            from Configuration.DataProcessing.GetScenario import getScenario
-            scenarioInst = getScenario(scenario)
-        except Exception as ex:
-            msg = "Failed to retrieve the Scenario named "
-            msg += str(scenario)
-            msg += "\nWith Error:"
-            msg += str(ex)
-                self.logger.error(msg)
-                raise ex
-            try:
-                self.process = getattr(scenarioInst, funcName)(**funcArgs)
-            except Exception as ex:
-                msg = "Failed to load process from Scenario %s (%s)." % (scenario, scenarioInst)
-                self.logger.error(msg)
-                raise ex
-
-        return
-
     def loadPSet(self):
         """
         _loadPSet_
