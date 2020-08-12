@@ -269,4 +269,6 @@ class SetupCMSSWPset():
         return 0
    
 mySetup = SetupCMSSWPset()
+mySetup.loadPSet()
+
 
