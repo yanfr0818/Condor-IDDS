@@ -272,3 +272,5 @@ def main():
     mySetup = SetupCMSSWPset()
     print(mySetup.process)
     
+if __name__ == "__main__":
+    main()
