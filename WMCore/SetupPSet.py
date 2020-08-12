@@ -235,32 +235,33 @@ class SetupCMSSWPset():
         applyTweak(self.process, tweak, self.fixupDict)
         return
         
-    def __call__(self):
+    def main():
         
         print("Executing SetupCMSSWPSet...")
+        mySetup = SetupCMSSWPset()
 
         try:
-            self.loadPSet()
+            mySetup.loadPSet()
         except Exception as ex:
             print("Error loading PSet:")
             raise ex
 
         # Check process.source exists
-        if getattr(self.process, "source", None) is None:
+        if getattr(mySetup.process, "source", None) is None:
             msg = "Error in CMSSW PSet: process is missing attribute 'source'"
             msg += " or process.source is defined with None value."
             print(msg)
             raise RuntimeError(msg)
 
-        self.fixupProcess()
+        mySetup.fixupProcess()
 
         psetTweak = "pset.py"
         if psetTweak is not None:
-            self.applyTweak(psetTweak)
+            mySetup.applyTweak(psetTweak)
         
         try:
             with open("pset_new.py", 'wb+') as pHandle:
-                pHandle.write(self.process)
+                pHandle.write(mySetup.process)
         except Exception as ex:
             print("Error writing out PSet:")
             raise ex
@@ -268,7 +269,5 @@ class SetupCMSSWPset():
 
         return 0
    
-mySetup = SetupCMSSWPset()
-mySetup.loadPSet()
-
-
+if __name__ == "__main__":
+    main()
