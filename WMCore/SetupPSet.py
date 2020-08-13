@@ -28,23 +28,21 @@ class CMSSWPset():
             print(msg)
             raise ex
 
-    def swap(self, process='input', fName=''):
+    def swap(self, pset, process='input'):
         
         if process == 'input':
-            fName = fName
-            try:    fName = fName.replace('.string' ,'.vstring')    
-            except: pass
-            if str(fName).find('/') == -1:    fName = fName.replace("string(\'", "string(\'file:")
-            self.process.source.fileNames = fName
+            self.process.source = pset.process.source
             
         if process == 'output':
-            fName = str(fName)
-            try:    fName = fName.replace('vstring','string' )    
-            except: pass
+            self.process.outputModules = pset.process.outputModules
+            
+        if process == 'outputToInput':
             for outMod in self.process.outputModules.keys():
-                self,getattr(self.process,outMod).fileName = fName
-                break
-                
+                fName = (getattr(self.process,outMod).fileName)
+            fName.replace(".string(\'", ".vstring(\'file:")
+            self.process.source.fileNames == ''
+            self.process.source.fileNames.append(fName)
+            
         return
 
     def persist(self):
@@ -76,8 +74,8 @@ def main():
             outputFiles = getattr(psetB.process,outMod).fileName
             break
             
-        psetB.swap('input', inputFiles )
-        psetA.swap('input', outputFiles)
+        psetB.swap('input', pset_job)
+        psetA.swap('outputToInput', psetB)
         
         psetA.persist()
         psetB.persist()
