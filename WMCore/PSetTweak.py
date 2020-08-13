@@ -72,6 +72,7 @@ class PSetLister:
         recursively traverse all parameters in this and all child
         PSets
         """
+        print(pset)
         self.queue.append(pset.psetName_)
         psetPath = ".".join(self.queue)
         self.psets.append(psetPath)
@@ -99,7 +100,7 @@ class JSONiser:
         operate on pset and substructure to build a json dictionary
         """
         if parent == None: parent = self.json
-        print(pset)
+            
         thisPSet = parent.get(pset.psetName_, None)
         if thisPSet == None:
             parent[pset.psetName_] = {}
