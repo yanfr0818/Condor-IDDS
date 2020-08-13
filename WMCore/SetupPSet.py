@@ -99,7 +99,7 @@ def main():
         #if psetTweak is not None:
         #    mySetup.applyTweak(psetTweak)
         
-        workingDir   = os.getcwd
+        workingDir   = os.getcwd()
         configPickle = 'psettest.pkl'
         configFile   = configPickle.replace('.pkl','.py')
         
