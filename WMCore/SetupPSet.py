@@ -264,16 +264,12 @@ class SetupCMSSWPset():
         _pythonise_
         return this object as python format
         """
-        src = inspect.getsourcelines(self.process)
         result = ""
-        for line in src[0]:
-            result += line
-
         result += "\n\n"
         result += "# define PSet Structure\n"
         result += "process = PSetHolder(\"process\")\n"
         setattrCalls = {}
-        setattrCalls.update(self.setattrCalls(pset))
+        setattrCalls.update(self.setattrCalls(self.process))
         order = sorted(setattrCalls.keys())
         for call in order:
             if call == "process": continue
