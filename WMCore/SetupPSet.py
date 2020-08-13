@@ -262,7 +262,7 @@ def main():
         print("Executing SetupCMSSWPSet...")
         mySetup = SetupCMSSWPset()
         try:
-            mySetup.loadPSet('psetA')
+            mySetup.loadPSet('pset')
         except Exception as ex:
             print("Error loading PSet:")
             raise ex
