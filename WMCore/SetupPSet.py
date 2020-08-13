@@ -244,7 +244,7 @@ class SetupCMSSWPset():
         i=0
         for key in self.process.__dict__:
             if key.startswith('_'): continue
-            if self.process.__dict__[key].find('cms.'==-1): continue
+            if str(self.process.__dict__[key]).find('cms.'==-1): continue
             i+=1
             print(i,': ',key,' -> ',self.process.__dict__[key])
                 
