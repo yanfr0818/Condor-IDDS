@@ -73,8 +73,10 @@ class PSetLister:
         PSets
         """
         print(pset)
-        self.queue.append(pset.psetName_)
+        print(self.psets)
+        #self.queue.append(pset.psetName_)
         psetPath = ".".join(self.queue)
+        print(psetPath)
         self.psets.append(psetPath)
         params = childParameters(psetPath, pset)
         self.parameters[psetPath] = params
