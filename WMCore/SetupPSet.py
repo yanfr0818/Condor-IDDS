@@ -38,7 +38,7 @@ class CMSSWPset():
         if process == 'outputToInput':
             for outMod in self.process.outputModules.keys():
                 fName = (getattr(self.process,outMod).fileName)
-            fName.replace(".string(\'", ".vstring(\'file:")
+            fName = cms.vstring(str(fName).replace(".string(\'", ".vstring(\'file:"))
             print('fName: ',fName)
             self.process.source.fileNames == ''
             self.process.source.fileNames.append(fName)
