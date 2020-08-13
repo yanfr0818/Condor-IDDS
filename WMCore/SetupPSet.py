@@ -180,7 +180,7 @@ class SetupCMSSWPset():
                  "process.source.lumisToProcess": fixupLumisToProcess,
                  "process.source.firstLuminosityBlock": fixupFirstLumi}
 
-    def loadPSet(self, psetModule = 'psetA'):
+    def loadPSet(self, psetModule = 'pset'):
         """
         _loadPSet_
 
@@ -265,7 +265,7 @@ def main():
         print("Executing SetupCMSSWPSet...")
         mySetup = SetupCMSSWPset()
         try:
-            mySetup.loadPSet('pset')
+            mySetup.loadPSet('psetA')
         except Exception as ex:
             print("Error loading PSet:")
             raise ex
