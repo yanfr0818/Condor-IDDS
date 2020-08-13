@@ -81,7 +81,7 @@ def main():
         
         workingDir   = os.getcwd()
         configPickle = ['ppsetA.pkl', 'ppsetB.pkl']
-        configFile   = [x for x in configPickle: x=x.replace('.pkl','.py')]
+        configFile   = [x.replace('.pkl','.py') for x in configPickle]
         
         for i in range(2):
           try:
