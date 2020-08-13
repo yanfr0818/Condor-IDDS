@@ -80,7 +80,6 @@ class SetupCMSSWPset():
         
 def main():
         
-        print("Executing SetupCMSSWPSet...")
         mySetup = SetupCMSSWPset()
         try:
             mySetup.loadPSet('pset')
@@ -114,9 +113,7 @@ def main():
                 handle.write("with open('%s', 'rb') as handle:\n" % configPickle)
                 handle.write("    process = pickle.load(handle)\n")
         except Exception as ex:
-            mySetup.process.logger.exception("Error writing out PSet:")
             raise ex
-        mySetup.process.logger.info("CMSSW PSet setup completed!")
    
 if __name__ == "__main__":
     main()
