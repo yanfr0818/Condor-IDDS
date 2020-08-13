@@ -246,6 +246,26 @@ class SetupCMSSWPset():
             if key.startswith('_'): continue
             i+=1
             print(i,': ',key,' -> ',self.process.__dict__[key])
+            
+        print(self.process.source)
+            
+        if hasattr(self.process, "outputModules"):
+            outputModuleNames = self.process.outputModules.keys()
+        else:
+            outputModuleNames = self.process.outputModules_()
+        for outMod in outputModuleNames:
+            outModRef = getattr(self.process, outMod)
+            if not hasattr(outModRef, "dataset"):
+                print(outModRef.dataset)
+            if not hasattr(outModRef.dataset, "dataTier"):
+                print(outModRef.dataset.dataTier)
+            if not hasattr(outModRef.dataset, "filterName"):
+                print(outModRef.dataset.filterName)
+            if not hasattr(outModRef, "fileName"):
+                print(outModRef.fileName)
+            if not hasattr(outModRef, "logicalFileName"):
+                print(outModRef.logicalFileName)
+        return
         return result
 
     def persist(self, filename, formatting="python"):
