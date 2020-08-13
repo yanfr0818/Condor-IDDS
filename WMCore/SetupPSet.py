@@ -94,10 +94,8 @@ def main():
             msg += " or process.source is defined with None value."
             print(msg)
             raise RuntimeError(msg)
-        print(getattr(mySetup.process, "source", None))
+            
         #mySetup.fixupProcess()
-
-        psetTweak = "pset.py"
 
         #if psetTweak is not None:
         #    mySetup.applyTweak(psetTweak)
@@ -108,7 +106,7 @@ def main():
         
         try:
             with open("%s/%s" % (workingDir, configPickle), 'wb') as pHandle:
-                pickle.dump(self.process, pHandle)
+                pickle.dump(mySetup.process, pHandle)
 
             with open("%s/%s" % (workingDir, configFile), 'w') as handle:
                 handle.write("import FWCore.ParameterSet.Config as cms\n")
