@@ -59,23 +59,11 @@ class SetupCMSSWPset():
         _persist_
         Save this object as either python, json or pickle
         """
-        i=0	        
-        for key in self.process.__dict__:
-            if key.startswith('_'): continue
-            i+=1	
-            #print(i,': ',key,' -> ',self.process.__dict__[key])
-        
-        print(self.process.source)
-        print(self.process._Process__outputmodules)
         
         print(self.process.source.fileNames)
         #print(self.process.outputModules.fileName)
-        print(self.process.outputModules.keys())
         for outMod in self.process.outputModules.keys():
-            print(outMod.fileName)
-            outModRef = getattr(self.process, outMod)
-            print(outModRef)
-            print(outModRef.fileName)
+            print(getattr(self.process,outMod).fileName)
         return
 
         
