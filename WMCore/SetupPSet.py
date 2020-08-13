@@ -265,7 +265,7 @@ class SetupCMSSWPset():
                 print(outModRef.fileName)
             if not hasattr(outModRef, "logicalFileName"):
                 print(outModRef.logicalFileName)
-        return
+                
         return result
 
     def persist(self, filename, formatting="python"):
