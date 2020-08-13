@@ -114,9 +114,9 @@ def main():
                 handle.write("with open('%s', 'rb') as handle:\n" % configPickle)
                 handle.write("    process = pickle.load(handle)\n")
         except Exception as ex:
-            mySetup.logger.exception("Error writing out PSet:")
+            mySetup.process.logger.exception("Error writing out PSet:")
             raise ex
-        mySetup.logger.info("CMSSW PSet setup completed!")
+        mySetup.process.logger.info("CMSSW PSet setup completed!")
    
 if __name__ == "__main__":
     main()
