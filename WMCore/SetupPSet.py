@@ -254,8 +254,8 @@ def main():
         mySetup.fixupProcess()
 
         psetTweak = "pset.py"
-        #if psetTweak is not None:
-        #    mySetup.applyPSetTweak(psetTweak, self.fixupDict)
+        if psetTweak is not None:
+            mySetup.applyPSetTweak(psetTweak, self.fixupDict)
         
         try:
             with open("pset_new.py", 'wb+') as pHandle:
@@ -264,8 +264,6 @@ def main():
             print("Error writing out PSet:")
             raise ex
         print("CMSSW PSet setup completed!")
-
-        return 0
    
 if __name__ == "__main__":
     main()
