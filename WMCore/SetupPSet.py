@@ -193,7 +193,7 @@ class SetupCMSSWPset():
             msg += str(ex)
             print(msg)
             raise ex
-
+        print('process:',self.process)
         return
 
     def fixupProcess(self):
