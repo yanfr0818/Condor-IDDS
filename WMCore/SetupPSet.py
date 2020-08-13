@@ -19,166 +19,12 @@ import re
 import FWCore.ParameterSet.Config as cms
 
 from PSetTweak import PSetTweak
-from WMTweak import applyTweak, makeJobTweak, makeOutputTweak, makeTaskTweak, resizeResources
-
-
-def fixupGlobalTag(process):
-    """
-    _fixupGlobalTag_
-
-    Make sure that the process has a GlobalTag.globaltag string.
-
-    Requires that the configuration already has a properly configured GlobalTag object.
-
-    """
-    if hasattr(process, "GlobalTag"):
-        if not hasattr(process.GlobalTag, "globaltag"):
-            process.GlobalTag.globaltag = cms.string("")
-    return
-
-
-def fixupGlobalTagTransaction(process):
-    """
-    _fixupGlobalTagTransaction_
-
-    Make sure that the process has a GlobalTag.DBParameters.transactionId string.
-
-    Requires that the configuration already has a properly configured GlobalTag object
-
-    (used to customize conditions access for Tier0 express processing)
-
-    """
-    if hasattr(process, "GlobalTag"):
-        if not hasattr(process.GlobalTag.DBParameters, "transactionId"):
-            process.GlobalTag.DBParameters.transactionId = cms.untracked.string("")
-    return
-
-
-def fixupFirstRun(process):
-    """
-    _fixupFirstRun_
-
-    Make sure that the process has a firstRun parameter.
-
-    """
-    if not hasattr(process.source, "firstRun"):
-        process.source.firstRun = cms.untracked.uint32(0)
-    return
-
-
-def fixupLastRun(process):
-    """
-    _fixupLastRun_
-
-    Make sure that the process has a lastRun parameter.
-
-    """
-    if not hasattr(process.source, "lastRun"):
-        process.source.lastRun = cms.untracked.uint32(0)
-    return
-
-
-def fixupLumisToProcess(process):
-    """
-    _fixupLumisToProcess_
-
-    Make sure that the process has a lumisToProcess parameter.
-
-    """
-    if not hasattr(process.source, "lumisToProcess"):
-        process.source.lumisToProcess = cms.untracked.VLuminosityBlockRange()
-    return
-
-
-def fixupSkipEvents(process):
-    """
-    _fixupSkipEvents_
-
-    Make sure that the process has a skip events parameter.
-
-    """
-    if not hasattr(process.source, "skipEvents"):
-        process.source.skipEvents = cms.untracked.uint32(0)
-    return
-
-
-def fixupFirstEvent(process):
-    """
-    _fixupFirstEvent_
-
-    Make sure that the process has a first event parameter.
-
-    """
-    if not hasattr(process.source, "firstEvent"):
-        process.source.firstEvent = cms.untracked.uint32(0)
-    return
-
-
-def fixupMaxEvents(process):
-    """
-    _fixupMaxEvents_
-
-    Make sure that the process has a max events parameter.
-
-    """
-    if not hasattr(process, "maxEvents"):
-        process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(-1))
-    if not hasattr(process.maxEvents, "input"):
-        process.maxEvents.input = cms.untracked.int32(-1)
-    return
-
-
-def fixupFileNames(process):
-    """
-    _fixupFileNames_
-
-    Make sure that the process has a fileNames parameter.
-
-    """
-    if not hasattr(process.source, "fileNames"):
-        process.source.fileNames = cms.untracked.vstring()
-    return
-
-
-def fixupSecondaryFileNames(process):
-    """
-    _fixupSecondaryFileNames_
-
-    Make sure that the process has a secondaryFileNames parameter.
-
-    """
-    if not hasattr(process.source, "secondaryFileNames"):
-        process.source.secondaryFileNames = cms.untracked.vstring()
-    return
-
-
-def fixupFirstLumi(process):
-    """
-    _fixupFirstLumi
-
-    Make sure that the process has firstLuminosityBlock parameter.
-    """
-    if not hasattr(process.source, "firstLuminosityBlock"):
-        process.source.firstLuminosityBlock = cms.untracked.uint32(1)
-    return
-
 
 class SetupCMSSWPset():
     """
     _SetupCMSSWPset_
 
     """
-    fixupDict = {"process.GlobalTag.globaltag": fixupGlobalTag,
-                 "process.GlobalTag.DBParameters.transactionId": fixupGlobalTagTransaction,
-                 "process.source.fileNames": fixupFileNames,
-                 "process.source.secondaryFileNames": fixupSecondaryFileNames,
-                 "process.maxEvents.input": fixupMaxEvents,
-                 "process.source.skipEvents": fixupSkipEvents,
-                 "process.source.firstEvent": fixupFirstEvent,
-                 "process.source.firstRun": fixupFirstRun,
-                 "process.source.lastRun": fixupLastRun,
-                 "process.source.lumisToProcess": fixupLumisToProcess,
-                 "process.source.firstLuminosityBlock": fixupFirstLumi}
 
     def loadPSet(self, psetModule = 'pset'):
         """
@@ -195,32 +41,6 @@ class SetupCMSSWPset():
             msg += str(ex)
             print(msg)
             raise ex
-        return
-
-    def fixupProcess(self):
-        """
-        _fixupProcess_
-
-        Look over the process object and make sure that all of the attributes
-        that we expect to exist actually exist.
-
-        """
-        if hasattr(self.process, "outputModules"):
-            outputModuleNames = self.process.outputModules.keys()
-        else:
-            outputModuleNames = self.process.outputModules_()
-        for outMod in outputModuleNames:
-            outModRef = getattr(self.process, outMod)
-            if not hasattr(outModRef, "dataset"):
-                outModRef.dataset = cms.untracked.PSet()
-            if not hasattr(outModRef.dataset, "dataTier"):
-                outModRef.dataset.dataTier = cms.untracked.string("")
-            if not hasattr(outModRef.dataset, "filterName"):
-                outModRef.dataset.filterName = cms.untracked.string("")
-            if not hasattr(outModRef, "fileName"):
-                outModRef.fileName = cms.untracked.string("")
-            if not hasattr(outModRef, "logicalFileName"):
-                outModRef.logicalFileName = cms.untracked.string("")
         return
 
     def applyTweak(self, psetTweak):
@@ -240,9 +60,10 @@ class SetupCMSSWPset():
         _pythonise_
         return this object as python format
         """
+        result = ''
         
         print(self.process.source)
-        print(self.process.out)
+        print(self.process.outputModules)
                 
         return result
 
