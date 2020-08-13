@@ -93,7 +93,7 @@ def main():
                 handle.write("import pickle\n")
                 handle.write("with open('%s', 'rb') as handle:\n" % configPickle[i])
                 handle.write("    process = pickle.load(handle)\n")
-        except Exception as ex:
+          except Exception as ex:
             raise ex
    
 if __name__ == "__main__":
