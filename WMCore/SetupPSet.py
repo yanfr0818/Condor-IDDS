@@ -80,17 +80,18 @@ def main():
         psetB.persist()
         
         workingDir   = os.getcwd()
-        configPickle = 'psettest.pkl'
-        configFile   = configPickle.replace('.pkl','.py')
+        configPickle = ['ppsetA.pkl', 'ppsetB.pkl']
+        configFile   = [x for x in configPickle: x=x.replace('.pkl','.py')]
         
-        try:
-            with open("%s/%s" % (workingDir, configPickle), 'wb') as pHandle:
+        for i in range(2):
+          try:
+             with open("%s/%s" % (workingDir, configPickle[i]), 'wb') as pHandle:
                 pickle.dump(psetB.process, pHandle)
 
-            with open("%s/%s" % (workingDir, configFile), 'w') as handle:
+             with open("%s/%s" % (workingDir, configFile[i]), 'w') as handle:
                 handle.write("import FWCore.ParameterSet.Config as cms\n")
                 handle.write("import pickle\n")
-                handle.write("with open('%s', 'rb') as handle:\n" % configPickle)
+                handle.write("with open('%s', 'rb') as handle:\n" % configPickle[i])
                 handle.write("    process = pickle.load(handle)\n")
         except Exception as ex:
             raise ex
