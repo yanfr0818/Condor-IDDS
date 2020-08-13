@@ -246,7 +246,7 @@ class SetupCMSSWPset():
         result = {}
         current = None
         last = None
-        psets = 'pset.py'
+        psets = ['pset.py']
         for _ in range(0, len(psets)):
             pset = psets.pop(0)
             last = current
