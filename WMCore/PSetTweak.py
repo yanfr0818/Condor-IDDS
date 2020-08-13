@@ -72,10 +72,10 @@ class PSetLister:
         recursively traverse all parameters in this and all child
         PSets
         """
-        print(pset.__dict__)
-        self.queue.append(pset.psetName)
+        #print(pset.__dict__)
+        self.queue.append(pset.psetName_)
         psetPath = ".".join(self.queue)
-        print(psetPath)
+        
         self.psets.append(psetPath)
         params = childParameters(psetPath, pset)
         self.parameters[psetPath] = params
