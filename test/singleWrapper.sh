@@ -10,8 +10,7 @@ cms=$2
 sarch=$3
 jno=$4
 
-ls -lh /cvmfs/oasis.opensciencegrid.org/cmssoft/cms/SITECONF/local/JobConfig/site-local-config.xml
-cat /cvmfs/oasis.opensciencegrid.org/cmssoft/cms/SITECONF/local/JobConfig/site-local-config.xml
+condor_chirp=/usr/libexec/condor/condor_chirp
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 export SCRAM_ARCH=$sarch
@@ -22,17 +21,17 @@ cmsenv
 
 cd ../..
 cp -r $dir/$cms/. $cms/.
-#cmsRun PSetDump.py
+cmsRun PSetDump.py
 
 cp PSetDump.py pset.py
 python psetEditWrapper.py foo
 
-method=$(./condor/libexec/condor_chirp get_job_attr ChirpTransferMethod)
+method=$($condor_chirp get_job_attr ChirpTransferMethod)
 if [ $method == "cms" ]
 then
     trap 'exit' ERR
-    cmsRun psetB.py -j jobreportB$jno.xml
-    cmsRun psetA.py -j jobreportA$jno.xml
+    cmsRun ppsetB.py -j jobreportB$jno.xml
+    cmsRun ppsetA.py -j jobreportA$jno.xml
 else
     cmsRun psetA.py -j jobreport$jno.xml
 fi
