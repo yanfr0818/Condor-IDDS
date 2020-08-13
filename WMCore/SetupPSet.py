@@ -25,7 +25,6 @@ class CMSSWPset():
         except ImportError as ex:
             msg = "Unable to import process from %s:\n" % psetModule
             msg += str(ex)
-            print(msg)
             raise ex
 
     def swap(self, pset, process='input'):
@@ -40,15 +39,16 @@ class CMSSWPset():
             for outMod in self.process.outputModules.keys():
                 fName = (getattr(self.process,outMod).fileName)
             fName.replace(".string(\'", ".vstring(\'file:")
+            print('fName: ',fName)
             self.process.source.fileNames == ''
             self.process.source.fileNames.append(fName)
             
         return
 
     def persist(self):
-        print(self.process.source.fileNames)
+        print('input: ',self.process.source.fileNames)
         for outMod in self.process.outputModules.keys():
-            print(getattr(self.process,outMod).fileName)
+            print('output: ',getattr(self.process,outMod).fileName)
         return
 
         
