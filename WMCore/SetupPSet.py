@@ -229,6 +229,7 @@ class SetupCMSSWPset():
         Apply a tweak to the process.
         """
         tweak = PSetTweak()
+        tweak.persist('test.py')
         tweak.unpersist(psetTweak)
         applyTweak(self.process, tweak, self.fixupDict)
         return
@@ -254,8 +255,9 @@ def main():
         #mySetup.fixupProcess()
 
         psetTweak = "pset.py"
-        if psetTweak is not None:
-            mySetup.applyTweak(psetTweak)
+
+        #if psetTweak is not None:
+        #    mySetup.applyTweak(psetTweak)
         
         try:
             with open("pset_new.py", 'wb+') as pHandle:
