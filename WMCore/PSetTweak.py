@@ -258,6 +258,7 @@ class PSetTweak:
         result += "process = PSetHolder(\"process\")\n"
         setattrCalls = {}
         for pset in self.psets():
+            print(pset)
             setattrCalls.update(self.setattrCalls(pset))
         order = sorted(setattrCalls.keys())
         for call in order:
