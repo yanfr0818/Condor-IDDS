@@ -41,7 +41,7 @@ class CMSSWPset():
             try:    fName = fName.replace('vstring','string' )    
             except: pass
             for outMod in self.process.outputModules.keys():
-                setattr(getattr(self.process,outMod).fileName), fName)
+                setattr(getattr(self.process,outMod).fileName, fName)
                 break
                 
         return
