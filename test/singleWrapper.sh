@@ -11,6 +11,7 @@ sarch=$3
 jno=$4
 
 condor_chirp=/usr/libexec/condor/condor_chirp
+executable=SetupPSet.py
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 export SCRAM_ARCH=$sarch
@@ -24,7 +25,7 @@ cp -r $dir/$cms/. $cms/.
 cmsRun PSetDump.py
 
 cp PSetDump.py pset.py
-python psetEditWrapper.py foo
+python $executable
 
 method=$($condor_chirp get_job_attr ChirpTransferMethod)
 if [ $method == "cms" ]
@@ -33,5 +34,5 @@ then
     cmsRun ppsetB.py -j jobreportB$jno.xml
     cmsRun ppsetA.py -j jobreportA$jno.xml
 else
-    cmsRun psetA.py -j jobreport$jno.xml
+    cmsRun ppsetA.py -j jobreport$jno.xml
 fi
