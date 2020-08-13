@@ -66,10 +66,10 @@ class SetupCMSSWPset():
             print(i,': ',key,' -> ',self.process.__dict__[key])
         
         print(self.process.source)
-        print(self.process._Process__outputmodules)
+        print(self.process._Process__outputmodules['out'])
         
         print(self.process.source.fileNames)
-        print(self.process._Process__outputmodules['out'].fileNames)
+        #print(self.process._Process__outputmodules['out'])
         
         return
 
