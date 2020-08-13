@@ -99,7 +99,7 @@ class JSONiser:
         operate on pset and substructure to build a json dictionary
         """
         if parent == None: parent = self.json
-
+        print(pset)
         thisPSet = parent.get(pset.psetName_, None)
         if thisPSet == None:
             parent[pset.psetName_] = {}
