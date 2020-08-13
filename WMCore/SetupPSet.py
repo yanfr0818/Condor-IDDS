@@ -36,7 +36,7 @@ class CMSSWPset():
             except: pass
             print("file name: ",fName)
             if fName.find('/') == -1:    fName = fName.replace("string(\'", "string(\'file:")
-            setattr(self.process.source, fileNames, fName)
+            setattr(self, self.process.fileNames, fName)
             
         if process == 'output':
             try:    fName = fName.replace('vstring','string' )    
