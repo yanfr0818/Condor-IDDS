@@ -69,7 +69,15 @@ class SetupCMSSWPset():
         print(self.process._Process__outputmodules)
         
         print(self.process.source.fileNames)
-        print(self.process.PoolOutputModule)
+        
+        if hasattr(self.process, "outputModules"):
+            outputModuleNames = self.process.outputModules.keys()
+        else:
+            outputModuleNames = self.process.outputModules_()
+        for outMod in outputModuleNames:
+            outModRef = getattr(self.process, outMod)
+            #if not hasattr(outModRef.dataset, "filterName"):
+            print(outModRef.dataset.filterName)
         
         return
 
