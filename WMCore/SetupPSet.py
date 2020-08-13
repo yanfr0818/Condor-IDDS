@@ -36,9 +36,9 @@ class CMSSWPset():
             self.process.outputModules = pset.process.outputModules
             
         if process == 'outputToInput':
-            for outMod in self.process.outputModules.keys():
+            for outMod in pset.process.outputModules.keys():
                 fName = (getattr(pset.process,outMod).fileName)
-            fName = cms.untracked.vstring('file:'+str(fName)[len("cms.untracked.string('"):])
+            fName = cms.untracked.vstring('file:'+str(fName)[len("cms.untracked.string('"):len("')")])
             print('fName: ',fName)
             self.process.source.fileNames = fName
             
