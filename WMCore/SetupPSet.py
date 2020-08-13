@@ -240,13 +240,9 @@ class SetupCMSSWPset():
         _pythonise_
         return this object as python format
         """
-        result = ""
-        i=0
-        for key in self.process.__dict__:
-            if key.startswith('_'): continue
-            if str(self.process.__dict__[key]).find('cms.'==-1): continue
-            i+=1
-            print(i,': ',key,' -> ',self.process.__dict__[key])
+        
+        print(self.process.source)
+        print(self.process.out)
                 
         return result
 
@@ -285,13 +281,23 @@ def main():
         #if psetTweak is not None:
         #    mySetup.applyTweak(psetTweak)
         
+        workingDir   = os.getcwd
+        configPickle = 'psettest.pkl'
+        configFile   = configPickle.replace('.pkl','.py')
+        
         try:
-            with open("pset_new.py", 'wb+') as pHandle:
-                pHandle.write(mySetup.process)
+            with open("%s/%s" % (workingDir, configPickle), 'wb') as pHandle:
+                pickle.dump(self.process, pHandle)
+
+            with open("%s/%s" % (workingDir, configFile), 'w') as handle:
+                handle.write("import FWCore.ParameterSet.Config as cms\n")
+                handle.write("import pickle\n")
+                handle.write("with open('%s', 'rb') as handle:\n" % configPickle)
+                handle.write("    process = pickle.load(handle)\n")
         except Exception as ex:
-            print("Error writing out PSet:")
+            self.logger.exception("Error writing out PSet:")
             raise ex
-        print("CMSSW PSet setup completed!")
+        self.logger.info("CMSSW PSet setup completed!")
    
 if __name__ == "__main__":
     main()
