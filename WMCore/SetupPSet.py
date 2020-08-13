@@ -61,12 +61,12 @@ class SetupCMSSWPset():
         """
         i=0	        
         for key in self.process.__dict__:
-            if key.startswith('_'): continue
+            #if key.startswith('_'): continue
             i+=1	
             print(i,': ',key,' -> ',self.process.__dict__[key])
         
         print(self.process.source)
-        print(self.process.outputModules['out'])
+        print(self.process.output)
         
         print(self.process.source.fileNames)
         print(self.process.outputModules.fileNames)
