@@ -71,10 +71,10 @@ class SetupCMSSWPset():
         print(self.process.source.fileNames)
         
         if hasattr(self.process, "outputModules"):
-            print 1
+            print(1)
             outputModuleNames = self.process.outputModules.keys()
         else:
-            print 2
+            print(2)
             outputModuleNames = self.process.outputModules_()
         for outMod in outputModuleNames:
             outModRef = getattr(self.process, outMod)
