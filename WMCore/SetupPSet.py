@@ -7,6 +7,8 @@ Create a CMSSW PSet suitable for running a WMAgent job.
 from __future__ import print_function
 
 import json
+import imp
+import inspect
 import logging
 import os
 import pickle
