@@ -310,7 +310,7 @@ def main():
         except Exception as ex:
             print("Error loading PSet:")
             raise ex
-       mySetup.persist('test.py')
+        mySetup.persist('test.py')
         # Check process.source exists
         if getattr(mySetup.process, "source", None) is None:
             msg = "Error in CMSSW PSet: process is missing attribute 'source'"
