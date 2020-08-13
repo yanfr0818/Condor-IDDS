@@ -251,7 +251,7 @@ def main():
             print(msg)
             raise RuntimeError(msg)
 
-        mySetup.fixupProcess()
+        #mySetup.fixupProcess()
 
         psetTweak = "pset.py"
         if psetTweak is not None:
