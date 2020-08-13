@@ -36,13 +36,15 @@ class CMSSWPset():
             except: pass
             print("file name: ",fName)
             if fName.find('/') == -1:    fName = fName.replace("string(\'", "string(\'file:")
-            setattr(self, self.process.source.fileNames, fName)
+            #setattr(self, self.process.source.fileNames, fName)
+            for inMod in self.process.source.keys():
+                setattr(self.process,getattr(self.process,inMod).fileName,fName)
             
         if process == 'output':
             try:    fName = fName.replace('vstring','string' )    
             except: pass
             for outMod in self.process.outputModules.keys():
-                setattr(getattr(self.process,outMod).fileName, fName)
+                setattr(self,getattr(self.process,outMod).fileName, fName)
                 break
                 
         return
@@ -75,7 +77,6 @@ def main():
         for outMod in psetB.process.outputModules.keys():
             outputFiles = getattr(psetB.process,outMod).fileName
             break
-        print(inputFiles, outputFiles)
             
         psetB.swap('input', inputFiles )
         psetA.swap('input', outputFiles)
