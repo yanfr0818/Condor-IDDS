@@ -26,7 +26,7 @@ class SetupCMSSWPset():
 
     """
 
-    def loadPSet(self, psetModule = 'pset'):
+    def __init__(self, psetModule = 'pset'):
         """
         _loadPSet_
 
@@ -41,7 +41,6 @@ class SetupCMSSWPset():
             msg += str(ex)
             print(msg)
             raise ex
-        return
 
     def applyTweak(self, psetTweak):
         """
@@ -54,48 +53,34 @@ class SetupCMSSWPset():
         tweak.unpersist(psetTweak)
         applyTweak(self.process, tweak, self.fixupDict)
         return
-              
-    def pythonise(self):
-        """
-        _pythonise_
-        return this object as python format
-        """
-        result = ''
-        
-        print(self.process.source)
-        print(self.process.outputModules)
-                
-        return result
 
-    def persist(self, filename, formatting="python"):
+    def persist(self):
         """
         _persist_
         Save this object as either python, json or pickle
         """
-        if formatting == "python":
-            with open(filename, 'w') as handle:
-                handle.write(self.pythonise())
+        print(self.process.source)
+        print(self.process.outputModules['out'])
+        
+        print(self.process.source.fileNames)
+        print(self.process.outputModules.fileNames)
+        
         return
 
         
 def main():
         
-        mySetup = SetupCMSSWPset()
-        try:
-            mySetup.loadPSet('pset')
-        except Exception as ex:
-            print("Error loading PSet:")
-            raise ex
-        mySetup.persist('test.py')
+        pset_job = SetupCMSSWPset('pset')
+        psetA    = SetupCMSSWPset('psetA')
+        psetB    = SetupCMSSWPset('psetB')
+
         # Check process.source exists
-        if getattr(mySetup.process, "source", None) is None:
+        if getattr(pset_job.process, "source", None) is None:
             msg = "Error in CMSSW PSet: process is missing attribute 'source'"
             msg += " or process.source is defined with None value."
-            print(msg)
             raise RuntimeError(msg)
             
-        #mySetup.fixupProcess()
-
+        psetB.persist()
         #if psetTweak is not None:
         #    mySetup.applyTweak(psetTweak)
         
@@ -105,7 +90,7 @@ def main():
         
         try:
             with open("%s/%s" % (workingDir, configPickle), 'wb') as pHandle:
-                pickle.dump(mySetup.process, pHandle)
+                pickle.dump(psetB.process, pHandle)
 
             with open("%s/%s" % (workingDir, configFile), 'w') as handle:
                 handle.write("import FWCore.ParameterSet.Config as cms\n")
