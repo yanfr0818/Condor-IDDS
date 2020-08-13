@@ -75,6 +75,7 @@ def main():
         for outMod in psetB.process.outputModules.keys():
             outputFiles = getattr(psetB.process,outMod).fileName
             break
+        print(inputFiles, outputFiles)
             
         psetB.swap('input', inputFiles )
         psetA.swap('input', outputFiles)
