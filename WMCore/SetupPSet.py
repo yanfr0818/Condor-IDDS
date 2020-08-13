@@ -1,11 +1,5 @@
-"""
-_SetupCMSSWPset_
-
-Create a CMSSW PSet suitable for running a WMAgent job.
-
-"""
+#!/usr/bin/env python
 from __future__ import print_function
-
 import json
 import imp
 import inspect
@@ -15,24 +9,17 @@ import pickle
 import random
 import socket
 import re
+import posixpath
+import requests
+import shutil
+import random
+import subprocess
 
 import FWCore.ParameterSet.Config as cms
 
-from PSetTweak import PSetTweak
-
-class SetupCMSSWPset():
-    """
-    _SetupCMSSWPset_
-
-    """
+class CMSSWPset():
 
     def __init__(self, psetModule = 'pset'):
-        """
-        _loadPSet_
-
-        Load a PSet that was shipped with the job sandbox.
-
-        """
         try:
             processMod = __import__(psetModule, globals(), locals(), ["process"], -1)
             self.process = processMod.process
@@ -42,26 +29,23 @@ class SetupCMSSWPset():
             print(msg)
             raise ex
 
-    def applyTweak(self, psetTweak):
-        """
-        _applyTweak_
-
-        Apply a tweak to the process.
-        """
-        tweak = PSetTweak()
-        tweak.persist('test.py')
-        tweak.unpersist(psetTweak)
-        applyTweak(self.process, tweak, self.fixupDict)
+    def swap(self, process='input', fName=''):
+        
+        if process == 'input':
+            try:    fName = fName.replace('string' ,'vstring')    except: pass
+            if fName.find('/') == -1:    fName = fName.replace("string(\'", "string(\'file:")
+            setattr(self.process.source.fileNames, fName)
+            
+        if process == 'output':
+            try:    fName = fName.replace('vstring','string' )    except: pass
+            for outMod in self.process.outputModules.keys():
+                setattr(getattr(self.process,outMod).fileName), fName)
+                break
+                
         return
 
     def persist(self):
-        """
-        _persist_
-        Save this object as either python, json or pickle
-        """
-        
         print(self.process.source.fileNames)
-        #print(self.process.outputModules.fileName)
         for outMod in self.process.outputModules.keys():
             print(getattr(self.process,outMod).fileName)
         return
@@ -69,19 +53,31 @@ class SetupCMSSWPset():
         
 def main():
         
-        pset_job = SetupCMSSWPset('pset')
-        psetA    = SetupCMSSWPset('psetA')
-        psetB    = SetupCMSSWPset('psetB')
+        shutil.copyfile( 'pset.py', 'psetA.py')
+        
+        pset_job = CMSSWPset('pset')
+        psetA    = CMSSWPset('psetA')
+        psetB    = CMSSWPset('psetB')
 
         # Check process.source exists
         if getattr(pset_job.process, "source", None) is None:
             msg = "Error in CMSSW PSet: process is missing attribute 'source'"
             msg += " or process.source is defined with None value."
             raise RuntimeError(msg)
-            
+ 
+        psetA.persist()           
         psetB.persist()
-        #if psetTweak is not None:
-        #    mySetup.applyTweak(psetTweak)
+        
+        inputFiles = pset_job.process.source.fileNames
+        for outMod in psetB.process.outputModules.keys():
+            outputFiles = getattr(psetB.process,outMod).fileName
+            break
+            
+        psetB.swap('input', inputFiles )
+        psetA.swap('input', outputFiles)
+        
+        psetA.persist()
+        psetB.persist()
         
         workingDir   = os.getcwd()
         configPickle = 'psettest.pkl'
