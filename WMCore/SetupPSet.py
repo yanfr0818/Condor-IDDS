@@ -74,8 +74,8 @@ def main():
             outputFiles = getattr(psetB.process,outMod).fileName
             break
             
-        psetB.swap('input', pset_job)
-        psetA.swap('outputToInput', psetB)
+        psetB.swap(pset_job, 'input')
+        psetA.swap(psetB, 'outputToInput')
         
         psetA.persist()
         psetB.persist()
