@@ -69,7 +69,7 @@ class SetupCMSSWPset():
         print(self.process._Process__outputmodules)
         
         print(self.process.source.fileNames)
-        print(self.process._Process__outputmodules.fileNames)
+        print(self.process._Process__outputmodules.fileNames['out'])
         
         return
 
