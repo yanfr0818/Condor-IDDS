@@ -241,8 +241,10 @@ class SetupCMSSWPset():
         return this object as python format
         """
         result = ""
+        i=0
         for key in self.process.__dict__:
-            print(key,'->',self.process.__dict__[key])
+            i+=1
+            print(i,': ',key,' -> ',self.process.__dict__[key])
         return result
 
     def persist(self, filename, formatting="python"):
