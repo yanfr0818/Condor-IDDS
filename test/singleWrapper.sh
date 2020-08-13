@@ -28,7 +28,7 @@ cp PSetDump.py pset.py
 python $executable
 
 method=$($condor_chirp get_job_attr ChirpTransferMethod)
-if [ $method == "cms" ]
+if [[ $method == "cms" ]]
 then
     trap 'exit' ERR
     cmsRun ppsetB.py -j jobreportB$jno.xml
