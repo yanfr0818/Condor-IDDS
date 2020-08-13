@@ -180,7 +180,7 @@ class SetupCMSSWPset():
                  "process.source.lumisToProcess": fixupLumisToProcess,
                  "process.source.firstLuminosityBlock": fixupFirstLumi}
 
-    def loadPSet(self, psetModule = 'pset'):
+    def loadPSet(self, psetModule = 'psetA'):
         """
         _loadPSet_
 
@@ -246,25 +246,6 @@ class SetupCMSSWPset():
             if key.startswith('_'): continue
             i+=1
             print(i,': ',key,' -> ',self.process.__dict__[key])
-            
-        print(self.process.source)
-            
-        if hasattr(self.process, "outputModules"):
-            outputModuleNames = self.process.outputModules.keys()
-        else:
-            outputModuleNames = self.process.outputModules_()
-        for outMod in outputModuleNames:
-            outModRef = getattr(self.process, outMod)
-            if not hasattr(outModRef, "dataset"):
-                print(outModRef.dataset)
-            if not hasattr(outModRef.dataset, "dataTier"):
-                print(outModRef.dataset.dataTier)
-            if not hasattr(outModRef.dataset, "filterName"):
-                print(outModRef.dataset.filterName)
-            if not hasattr(outModRef, "fileName"):
-                print(outModRef.fileName)
-            if not hasattr(outModRef, "logicalFileName"):
-                print(outModRef.logicalFileName)
                 
         return result
 
@@ -300,8 +281,8 @@ def main():
 
         psetTweak = "pset.py"
 
-        if psetTweak is not None:
-            mySetup.applyTweak(psetTweak)
+        #if psetTweak is not None:
+        #    mySetup.applyTweak(psetTweak)
         
         try:
             with open("pset_new.py", 'wb+') as pHandle:
