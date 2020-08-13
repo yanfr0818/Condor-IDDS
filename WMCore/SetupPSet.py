@@ -64,9 +64,6 @@ def main():
             msg = "Error in CMSSW PSet: process is missing attribute 'source'"
             msg += " or process.source is defined with None value."
             raise RuntimeError(msg)
- 
-        psetA.persist()           
-        psetB.persist()
         
         inputFiles = pset_job.process.source.fileNames
         for outMod in psetB.process.outputModules.keys():
@@ -75,9 +72,6 @@ def main():
             
         psetB.swap(pset_job, 'input')
         psetA.swap(psetB, 'outputToInput')
-        
-        psetA.persist()
-        psetB.persist()
         
         workingDir   = os.getcwd()
         configPickle = ['ppsetA.pkl', 'ppsetB.pkl']
