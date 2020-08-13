@@ -255,7 +255,7 @@ def main():
 
         psetTweak = "pset.py"
         if psetTweak is not None:
-            mySetup.applyTweak(psetTweak, mySetup.fixupDict)
+            mySetup.applyTweak(psetTweak)
         
         try:
             with open("pset_new.py", 'wb+') as pHandle:
