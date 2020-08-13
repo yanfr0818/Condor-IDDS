@@ -31,12 +31,12 @@ class CMSSWPset():
     def swap(self, process='input', fName=''):
         
         if process == 'input':
-            fName = str(fName)
+            #fName = str(fName)
             try:    fName = fName.replace('.string' ,'.vstring')    
             except: pass
             print("file name: ",fName)
-            if fName.find('/') == -1:    fName = fName.replace("string(\'", "string(\'file:")
-            setattr(self.process, str(self.process.source.fileNames), str(fName))
+            #if fName.find('/') == -1:    fName = fName.replace("string(\'", "string(\'file:")
+            setattr(self.process, self.process.source.fileNames, fName)
             
         if process == 'output':
             try:    fName = fName.replace('vstring','string' )    
