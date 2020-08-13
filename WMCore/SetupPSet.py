@@ -10,7 +10,6 @@ import random
 import socket
 import re
 import posixpath
-import requests
 import shutil
 import random
 import subprocess
