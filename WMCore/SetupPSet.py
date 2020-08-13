@@ -41,6 +41,9 @@ class CMSSWPset():
             fName = cms.untracked.vstring('file:'+str(fName)[len("cms.untracked.string('"):-len("')")])
             self.process.source.fileNames = fName
             
+        if process == 'nEvent':
+            self.process.maxEvents = pset.process.maxEvents
+            
         return
 
     def persist(self):
@@ -71,6 +74,8 @@ def main():
             
         psetB.swap(pset_job, 'input')
         psetA.swap(psetB, 'outputToInput')
+        psetA.swap(pset_job, 'nEvent')
+        psetB.swap(pset_job, 'nEvent')
         
         workingDir   = os.getcwd()
         configPickle = ['ppsetA.pkl', 'ppsetB.pkl']
