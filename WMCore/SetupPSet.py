@@ -32,12 +32,14 @@ class CMSSWPset():
     def swap(self, process='input', fName=''):
         
         if process == 'input':
-            try:    fName = fName.replace('string' ,'vstring')    except: pass
+            try:    fName = fName.replace('string' ,'vstring')    
+            except: pass
             if fName.find('/') == -1:    fName = fName.replace("string(\'", "string(\'file:")
             setattr(self.process.source.fileNames, fName)
             
         if process == 'output':
-            try:    fName = fName.replace('vstring','string' )    except: pass
+            try:    fName = fName.replace('vstring','string' )    
+            except: pass
             for outMod in self.process.outputModules.keys():
                 setattr(getattr(self.process,outMod).fileName), fName)
                 break
