@@ -193,7 +193,8 @@ class SetupCMSSWPset():
             msg += str(ex)
             print(msg)
             raise ex
-            
+        print(self.process)
+        print(self.process.__dict__)
         return
 
     def fixupProcess(self):
@@ -234,6 +235,71 @@ class SetupCMSSWPset():
         applyTweak(self.process, tweak, self.fixupDict)
         return
         
+    def setattrCalls(self, psetPath):
+        """
+        _setattrCalls_
+        Generate setattr call for each parameter in the pset structure
+        Used for generating python format
+        """
+        result = {}
+        current = None
+        last = None
+        psets = 'pset.py'
+        for _ in range(0, len(psets)):
+            pset = psets.pop(0)
+            last = current
+            if current == None:
+                current = pset
+            else:
+                current += ".%s" % pset
+            if last != None:
+                result[current] = "setattr(%s, \"%s\", PSetHolder(\"%s\"))" % (
+                    last, pset, pset)
+        return result
+        
+    def pythonise(self):
+        """
+        _pythonise_
+        return this object as python format
+        """
+        src = inspect.getsourcelines(self.process)
+        result = ""
+        for line in src[0]:
+            result += line
+
+        result += "\n\n"
+        result += "# define PSet Structure\n"
+        result += "process = PSetHolder(\"process\")\n"
+        setattrCalls = {}
+        setattrCalls.update(self.setattrCalls(pset))
+        order = sorted(setattrCalls.keys())
+        for call in order:
+            if call == "process": continue
+            result += "%s\n" % setattrCalls[call]
+
+        result += "# set parameters\n"
+        for param, value in self.process:
+            psetName = param.rsplit(".", 1)[0]
+            paramName = param.rsplit(".", 1)[1]
+            if isinstance(value, basestring):
+                value = "\"%s\"" % value
+            result += "setattr(%s, \"%s\", %s)\n" % (
+                psetName, paramName, value)
+            result += "%s.parameters_.append(\"%s\")\n" % (psetName, paramName)
+
+        return result
+
+    def persist(self, filename, formatting="python"):
+        """
+        _persist_
+        Save this object as either python, json or pickle
+        """
+        if formatting == "python":
+            with open(filename, 'w') as handle:
+                handle.write(self.pythonise())
+        return
+
+        
 def main():
         
         print("Executing SetupCMSSWPSet...")
@@ -244,7 +310,7 @@ def main():
         except Exception as ex:
             print("Error loading PSet:")
             raise ex
-
+       mySetup.persist('test.py')
         # Check process.source exists
         if getattr(mySetup.process, "source", None) is None:
             msg = "Error in CMSSW PSet: process is missing attribute 'source'"
