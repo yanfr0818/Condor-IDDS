@@ -52,12 +52,13 @@ class CMSSWPset():
             print('output: ',getattr(self.process,outMod).fileName)
         return
 
-    def chirpSetAttr(attr, val):
-        condor_chirp = '/usr/libexec/condor/condor_chirp'
-        process = subprocess.Popen([condor_chirp, 'set_job_attr', attr,'\''+val+'\''], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out, err = process.communicate()
-        
-def main():
+def chirpSetAttr(attr, val):
+    condor_chirp = '/usr/libexec/condor/condor_chirp'
+    process = subprocess.Popen([condor_chirp, 'set_job_attr', attr,'\''+val+'\''], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+
+
+if __name__ == "__main__":
         
     shutil.copyfile( 'pset.py', 'psetA.py')
         
@@ -103,6 +104,3 @@ def main():
             handle.write("    process = pickle.load(handle)\n")
       except Exception as ex:
         raise ex
-   
-if __name__ == "__main__":
-    main()
